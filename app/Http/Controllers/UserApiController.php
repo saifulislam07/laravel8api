@@ -121,4 +121,51 @@ class UserApiController extends Controller
             return response()->json(['message' => $message], 202);
         }
     }
+    public function updateSingleRecord(Request $request, $id)
+    {
+        if ($request->isMethod('patch')) {
+            $data = $request->all();
+
+            $rules = [
+                'name' => 'required',
+
+            ];
+
+            $customMessage = [
+                'name.required' => 'Name is required',
+
+            ];
+
+            $validator = Validator::make($data, $rules, $customMessage);
+
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
+
+            $user = User::findOrfail($id);
+            $user->name = $data['name'];
+
+            $user->save();
+            $message = 'User single Details Successfully Updated';
+            return response()->json(['message' => $message], 202);
+        }
+    }
+
+
+    public function deleteSingleRecord($id = null)
+    {
+        User::findOrFail($id)->delete();
+        $message = 'Delete single data Successfully ';
+        return response()->json(['message' => $message], 200);
+    }
+    public function deleteSingleRecordByJson(Request $request)
+    {
+
+        if ($request->isMethod('delete')) {
+            $data = $request->all();
+            User::where('id', $data['id'])->delete();
+            $message = 'Delete single data by json Successfully ';
+            return response()->json(['message' => $message], 200);
+        }
+    }
 }
