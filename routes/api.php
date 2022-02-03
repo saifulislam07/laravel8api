@@ -16,3 +16,5 @@ Route::put('/update-user-details/{id}', [UserApiController::class, 'updateUserDe
 Route::patch('/update-single-record/{id}', [UserApiController::class, 'updateSingleRecord']);
 Route::delete('/delete-single-record/{id}', [UserApiController::class, 'deleteSingleRecord']);
 Route::delete('/delete-single-record-by-json', [UserApiController::class, 'deleteSingleRecordByJson']);
+Route::delete('/delete-multiple-record/{ids}', [UserApiController::class, 'deleteMultipleRecord']);
+Route::delete('/delete-multiple-record-by-json', [UserApiController::class, 'deleteMultipleRecordByJson']);
